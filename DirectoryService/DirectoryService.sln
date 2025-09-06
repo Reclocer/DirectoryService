@@ -1,8 +1,62 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryService.Domain", "src\DirectoryService.Domain\DirectoryService.Domain.csproj", "{B7AB362A-AD7F-4A75-A0A6-B9E991C4C9A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D6792018-7664-4FF3-B22E-354940A991DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryService.Application", "src\DirectoryService.Application\DirectoryService.Application.csproj", "{596EE324-F770-4443-9BDC-C7C12809D25C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryService.Infrastructure", "src\DirectoryService.Infrastructure\DirectoryService.Infrastructure.csproj", "{9B937250-914F-4325-B0F4-3043250BFBCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryService.Presenters", "src\DirectoryService.Presenters\DirectoryService.Presenters.csproj", "{28B16E1C-1844-4278-85BB-D6CC29E701AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryService.Contracts", "src\DirectoryService.Contracts\DirectoryService.Contracts.csproj", "{70EA0308-8C48-4870-BED9-5453966110CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryService.Web", "src\DirectoryService.Web\DirectoryService.Web.csproj", "{411AF680-8EB1-4E01-A2E5-B8839C8311D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{14196311-A903-434D-95DA-26C989477AF6}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7AB362A-AD7F-4A75-A0A6-B9E991C4C9A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7AB362A-AD7F-4A75-A0A6-B9E991C4C9A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7AB362A-AD7F-4A75-A0A6-B9E991C4C9A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7AB362A-AD7F-4A75-A0A6-B9E991C4C9A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{596EE324-F770-4443-9BDC-C7C12809D25C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{596EE324-F770-4443-9BDC-C7C12809D25C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{596EE324-F770-4443-9BDC-C7C12809D25C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{596EE324-F770-4443-9BDC-C7C12809D25C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B937250-914F-4325-B0F4-3043250BFBCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B937250-914F-4325-B0F4-3043250BFBCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B937250-914F-4325-B0F4-3043250BFBCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B937250-914F-4325-B0F4-3043250BFBCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28B16E1C-1844-4278-85BB-D6CC29E701AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B16E1C-1844-4278-85BB-D6CC29E701AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B16E1C-1844-4278-85BB-D6CC29E701AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B16E1C-1844-4278-85BB-D6CC29E701AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70EA0308-8C48-4870-BED9-5453966110CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70EA0308-8C48-4870-BED9-5453966110CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70EA0308-8C48-4870-BED9-5453966110CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70EA0308-8C48-4870-BED9-5453966110CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{411AF680-8EB1-4E01-A2E5-B8839C8311D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{411AF680-8EB1-4E01-A2E5-B8839C8311D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{411AF680-8EB1-4E01-A2E5-B8839C8311D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{411AF680-8EB1-4E01-A2E5-B8839C8311D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B7AB362A-AD7F-4A75-A0A6-B9E991C4C9A0} = {D6792018-7664-4FF3-B22E-354940A991DA}
+		{596EE324-F770-4443-9BDC-C7C12809D25C} = {D6792018-7664-4FF3-B22E-354940A991DA}
+		{9B937250-914F-4325-B0F4-3043250BFBCF} = {D6792018-7664-4FF3-B22E-354940A991DA}
+		{28B16E1C-1844-4278-85BB-D6CC29E701AF} = {D6792018-7664-4FF3-B22E-354940A991DA}
+		{70EA0308-8C48-4870-BED9-5453966110CE} = {D6792018-7664-4FF3-B22E-354940A991DA}
+		{411AF680-8EB1-4E01-A2E5-B8839C8311D8} = {D6792018-7664-4FF3-B22E-354940A991DA}
 	EndGlobalSection
 EndGlobal
