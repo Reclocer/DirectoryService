@@ -1,37 +1,40 @@
-using System.Text.RegularExpressions;
 using CSharpFunctionalExtensions;
 
 namespace DirectoryService.Domain.Departments;
 
-#pragma warning disable SA1124
-
 public class Department
 {
     public Guid Id { get; private set; }
-    public string Name { get; private set; }
-    public string Identifier { get; private set; }
-    public string Path { get; private set; }
+    public DepartmentName Name { get; private set; }
+    public Identifier Identifier { get; private set; }
+    public DepartmentPath Path { get; private set; }
     public short Depth { get; private set; }
     public DateTime CreatedAt { get; private set; }
-    public DateTime UpdateTime { get; private set; }
+    public DateTime UpdateAt { get; private set; }
+
+    private List<DepartmentLocation> _locations;
+    public IReadOnlyList<DepartmentLocation> Locations => _locations;
+    
+    private List<DepartmentPosition> _positions;
+    public IReadOnlyList<DepartmentPosition> Positions => _positions;
+    
     public bool IsActive { get; private set; }
     public Guid? ParentId { get; private set; }
+    
+    private List<Department> _children;
+    public IReadOnlyList<Department> Children => _children;
 
-    private const int MIN_NAME_LENGTH = 3;
-    private const int MAX_NAME_LENGTH = 150;
-    
-    private const int MIN_IDENTIFIER_LENGTH = 2;
-    private const int MAX_IDENTIFIER_LENGTH = 5;
-    
     private Department(
-        string name,
-        string identifier,
-        string path,
+        DepartmentName name,
+        Identifier identifier,
+        DepartmentPath path,
         short depth,
         DateTime createdAt,
-        DateTime updateTime,
+        List<DepartmentLocation> locations,
+        List<DepartmentPosition> positions,
         bool isActive = true,
-        Guid? parentId = null)
+        Guid? parentId = null,
+        List<Department> children = null)
     {
         Id = Guid.NewGuid();
         Name = name;
@@ -39,101 +42,53 @@ public class Department
         Path = path;
         Depth = depth;
         CreatedAt = createdAt;
-        UpdateTime = updateTime;
+        UpdateAt = createdAt;
+        _locations = locations;
+        _positions = positions;
         IsActive = isActive;
         ParentId = parentId;
+        _children = children;
     }
-
-    public Result Rename(string name, string identifier, string path)
-    {
-        var validatedName = ValidateName(name);
-        
-        if (!validatedName.IsValid)
-            return Result.Failure(validatedName.Message);
     
-        Name = name;
-        return Result.Success(this);
-    }
-
     public static Result<Department> Create(
-        string name,
-        string identifier,
-        string path,
+        DepartmentName name,
+        Identifier identifier,
+        DepartmentPath path,
         short depth,
         DateTime createdAt,
-        DateTime updateTime,
+        List<DepartmentLocation> locations,
+        List<DepartmentPosition> positions,
         bool isActive = true,
-        Guid? parentId = null)
+        Guid? parentId = null,
+        List<Department> children = null)
     {
-        var validatedName = ValidateName(name);
-        
-        if (!validatedName.IsValid)
-            return Result.Failure<Department>(validatedName.Message);
-        
-        var validatedIdentifier = ValidateIdentifier(identifier);
-        
-        if (!validatedIdentifier.IsValid)
-            return Result.Failure<Department>(validatedIdentifier.Message);
-        
-        var validatedPath = ValidatePath(path);
-        
-        if (!validatedPath.IsValid)
-            return Result.Failure<Department>(validatedPath.Message);
-
         var validatedDepth = ValidateDepth(depth);
         
         if (!validatedDepth.IsValid)
             return Result.Failure<Department>(validatedDepth.Message);
+        
+        if(locations == null || locations.Count == 0)
+            return Result.Failure<Department>("Locations is empty");
 
         return Result.Success(new Department(name,
                                              identifier,
                                              path,
                                              depth,
                                              createdAt,
-                                             updateTime,
+                                             locations,
+                                             positions,
                                              isActive,
-                                             parentId));
-    }
-
-    #region Validation
-    private static (bool IsValid, string Message) ValidateName(string name)
-    {
-        if (string.IsNullOrWhiteSpace(name) || name.Length < MIN_NAME_LENGTH || name.Length > MAX_NAME_LENGTH)
-        {
-            return (false, $"Name is empty or length < {MIN_NAME_LENGTH} or length > {MAX_NAME_LENGTH}");
-        }
-
-        return (true, "isValid");
+                                             parentId,
+                                             children));
     }
     
-    private static (bool IsValid, string Message) ValidateIdentifier(string value)
+    public void Rename(DepartmentName name, Identifier identifier, DepartmentPath path, DateTime updateTime)
     {
-        if (string.IsNullOrWhiteSpace(value) || value.Length < MIN_IDENTIFIER_LENGTH || value.Length > MAX_IDENTIFIER_LENGTH)
-        {
-            return (false, $"Identifier is empty or length < {MIN_IDENTIFIER_LENGTH} or length > {MAX_IDENTIFIER_LENGTH}");
-        }
-        
-        if (!Regex.IsMatch(value, @"^[a-z_-]+$"))
-        {
-            return (false, $"Identifier can only consist of (a-z, _-)");
-        }
-
-        return (true, "isValid");
-    }
-    
-    private static (bool IsValid, string Message) ValidatePath(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return (false, $"Identifier is empty");
-        }
-        
-        if (!Regex.IsMatch(value, @"^[a-z_-]+$"))
-        {
-            return (false, $"Identifier can only consist of (a-z, _-)");
-        }
-
-        return (true, "isValid");
+        Name = name;
+        Identifier = identifier;
+        Path = path;
+        UpdateAt = updateTime;
+        //TODO: change path in children
     }
     
     private static (bool IsValid, string Message) ValidateDepth(short value)
@@ -145,7 +100,6 @@ public class Department
 
         return (true, "isValid");
     }
-    #endregion Validation
 }
 
 public class Location
