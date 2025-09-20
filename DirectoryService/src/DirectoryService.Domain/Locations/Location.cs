@@ -5,23 +5,28 @@ namespace DirectoryService.Domain.Locations;
 
 public class Location
 {
-    public Guid Id { get; private set; }
+    public LocationId Id { get; private set; }
     public LocationName Name { get; private set; }
     public Address.Address Address { get; private set; }
     public TimeZone.TimeZone TimeZone { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
     
-    private List<DepartmentLocation> _departmentLocations;
+    private List<DepartmentLocation> _departmentLocations = new();
     public IReadOnlyList<DepartmentLocation> DepartmentLocations => _departmentLocations;
     
     public bool IsActive { get; private set; }
     
-    private List<Department> _departments;
+    private List<Department> _departments = new();
     public IReadOnlyList<Department> Departments => _departments;
 
+    //EF Core
+    private Location()
+    {
+    }
+    
     private Location(
-        Guid id,
+        LocationId id,
         LocationName locationName,
         Address.Address address,
         TimeZone.TimeZone timeZone,
@@ -42,7 +47,7 @@ public class Location
     }
 
     public Result<Location> Create(
-        Guid id,
+        LocationId id,
         LocationName locationName,
         Address.Address address,
         TimeZone.TimeZone timeZone,

@@ -4,7 +4,7 @@ namespace DirectoryService.Domain.Departments;
 
 public class Department
 {
-    public Guid Id { get; private set; }
+    public DepartmentId Id { get; private set; }
     public DepartmentName Name { get; private set; }
     public Identifier Identifier { get; private set; }
     public DepartmentPath Path { get; private set; }
@@ -12,19 +12,25 @@ public class Department
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdateAt { get; private set; }
 
-    private List<DepartmentLocation> _locations;
+    private List<DepartmentLocation> _locations = new();
     public IReadOnlyList<DepartmentLocation> Locations => _locations;
     
-    private List<DepartmentPosition> _positions;
+    private List<DepartmentPosition> _positions = new();
     public IReadOnlyList<DepartmentPosition> Positions => _positions;
     
     public bool IsActive { get; private set; }
     public Guid? ParentId { get; private set; }
     
-    private List<Department> _children;
+    private List<Department> _children = new();
     public IReadOnlyList<Department> Children => _children;
 
+    //EF Core
+    private Department()
+    {
+    }
+    
     private Department(
+        DepartmentId departmentId,
         DepartmentName name,
         Identifier identifier,
         DepartmentPath path,
@@ -36,7 +42,7 @@ public class Department
         Guid? parentId = null,
         List<Department> children = null)
     {
-        Id = Guid.NewGuid();
+        Id = departmentId;
         Name = name;
         Identifier = identifier;
         Path = path;
@@ -51,6 +57,7 @@ public class Department
     }
     
     public static Result<Department> Create(
+        DepartmentId departmentId,
         DepartmentName name,
         Identifier identifier,
         DepartmentPath path,
@@ -70,7 +77,8 @@ public class Department
         if(locations == null || locations.Count == 0)
             return Result.Failure<Department>("Locations is empty");
 
-        return Result.Success(new Department(name,
+        return Result.Success(new Department(departmentId,
+                                             name,
                                              identifier,
                                              path,
                                              depth,
@@ -100,9 +108,4 @@ public class Department
 
         return (true, "isValid");
     }
-}
-
-public class Location
-{
-    
 }
