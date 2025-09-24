@@ -19,7 +19,7 @@ public class Department
     public IReadOnlyList<DepartmentPosition> Positions => _positions;
     
     public bool IsActive { get; private set; }
-    public Guid? ParentId { get; private set; }
+    public DepartmentId? ParentId { get; private set; }
     
     private List<Department> _children = new();
     public IReadOnlyList<Department> Children => _children;
@@ -39,7 +39,7 @@ public class Department
         List<DepartmentLocation> locations,
         List<DepartmentPosition> positions,
         bool isActive = true,
-        Guid? parentId = null,
+        DepartmentId? parentId = null,
         List<Department> children = null)
     {
         Id = departmentId;
@@ -66,7 +66,7 @@ public class Department
         List<DepartmentLocation> locations,
         List<DepartmentPosition> positions,
         bool isActive = true,
-        Guid? parentId = null,
+        DepartmentId? parentId = null,
         List<Department> children = null)
     {
         var validatedDepth = ValidateDepth(depth);

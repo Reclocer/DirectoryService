@@ -1,5 +1,7 @@
 using CSharpFunctionalExtensions;
 using DirectoryService.Domain.Departments;
+using DirectoryService.Domain.Locations.Address;
+using DirectoryService.Domain.Locations.TimeZone;
 
 namespace DirectoryService.Domain.Locations;
 
@@ -7,8 +9,8 @@ public class Location
 {
     public LocationId Id { get; private set; }
     public LocationName Name { get; private set; }
-    public Address.Address Address { get; private set; }
-    public TimeZone.TimeZone TimeZone { get; private set; }
+    public LocationAddress LocationAddress { get; private set; }
+    public LocationTimeZone LocationTimeZone { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
     
@@ -16,9 +18,6 @@ public class Location
     public IReadOnlyList<DepartmentLocation> DepartmentLocations => _departmentLocations;
     
     public bool IsActive { get; private set; }
-    
-    private List<Department> _departments = new();
-    public IReadOnlyList<Department> Departments => _departments;
 
     //EF Core
     private Location()
@@ -28,8 +27,8 @@ public class Location
     private Location(
         LocationId id,
         LocationName locationName,
-        Address.Address address,
-        TimeZone.TimeZone timeZone,
+        Address.LocationAddress locationAddress,
+        TimeZone.LocationTimeZone locationTimeZone,
         DateTime createdAt,
         List<DepartmentLocation> departmentLocations,
         bool isActive = true,
@@ -37,20 +36,19 @@ public class Location
     {
         Id = id;
         Name = locationName;
-        Address = address;
-        TimeZone = timeZone;
+        LocationAddress = locationAddress;
+        LocationTimeZone = locationTimeZone;
         CreatedAt = createdAt;
         UpdatedAt = createdAt;
         _departmentLocations = departmentLocations;
         IsActive = isActive;
-        _departments = departments;
     }
 
     public Result<Location> Create(
         LocationId id,
         LocationName locationName,
-        Address.Address address,
-        TimeZone.TimeZone timeZone,
+        Address.LocationAddress locationAddress,
+        TimeZone.LocationTimeZone locationTimeZone,
         DateTime createdAt,
         List<DepartmentLocation> locations,
         bool isActive = true,
@@ -59,11 +57,10 @@ public class Location
         return Result.Success<Location>(new Location(
             id,
             locationName,
-            address,
-            timeZone,
+            locationAddress,
+            locationTimeZone,
             createdAt,
             locations,
-            isActive,
-            departments));
+            isActive));
     }
 }
