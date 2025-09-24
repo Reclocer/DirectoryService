@@ -4,18 +4,23 @@ namespace DirectoryService.Domain.Positions;
 
 public class Position
 {
-    public Guid Id { get; private set; }
-    public PositionName Name { get; private set; } //TODO: Unique
+    public PositionId Id { get; private set; }
+    public PositionName Name { get; private set; }
     public PositionDescription Description { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
     
-    private List<DepartmentPosition> _departmentPositions;
+    private List<DepartmentPosition> _departmentPositions = new();
     public IReadOnlyList<DepartmentPosition> DepartmentPositions => _departmentPositions;
     public bool IsActive { get; private set; }
 
+    //EF Core
+    private Position()
+    {
+    }
+    
     private Position(
-        Guid id,
+        PositionId id,
         PositionName name,
         PositionDescription description,
         DateTime createdAt,
@@ -32,7 +37,7 @@ public class Position
     }
 
     public static Result<Position> Create(
-        Guid id,
+        PositionId id,
         PositionName name,
         PositionDescription description,
         DateTime createdAt,

@@ -5,15 +5,15 @@ namespace DirectoryService.Domain.Departments;
 
 public record Identifier
 {
-    public readonly string IdentifierValue;
+    public readonly string Value;
     
     private const int MIN_IDENTIFIER_LENGTH = 2;
     private const int MAX_IDENTIFIER_LENGTH = 8;
     private const string TEXT_PATTERN = @"^[a-z-]+$";
 
-    private Identifier(string identifierValue)
+    private Identifier(string value)
     {
-        IdentifierValue = identifierValue;
+        Value = value;
     }
     
     public static Result<Identifier> Create(string value)
