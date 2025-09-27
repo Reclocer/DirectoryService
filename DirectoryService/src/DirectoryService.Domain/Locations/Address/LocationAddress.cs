@@ -2,7 +2,7 @@ using CSharpFunctionalExtensions;
 
 namespace DirectoryService.Domain.Locations.Address;
 
-public record Address
+public record LocationAddress
 {
     public readonly string AddressText;
 
@@ -13,7 +13,7 @@ public record Address
     public readonly string HouseNumber;
     public readonly string Index;
     
-    private Address(
+    private LocationAddress(
         string country,
         string region,
         string city,
@@ -31,7 +31,7 @@ public record Address
         AddressText = $"{country}, {region}, {city}, {street}, {houseNumber}, {index}";
     }
 
-    public Result<Address> Create(
+    public static Result<LocationAddress> Create(
         string country,
         string region,
         string city,
@@ -39,7 +39,7 @@ public record Address
         string houseNumber,
         string index)
     {
-        Address address = new Address(
+        LocationAddress locationAddress = new LocationAddress(
             country,
             region,
             city,
@@ -48,11 +48,11 @@ public record Address
             index);
         
         var validator = new AddressValidator();
-        var result = validator.Validate(address);
+        var result = validator.Validate(locationAddress);
 
         if (!result.IsValid)
-            return Result.Failure<Address>("Address invalid");
+            return Result.Failure<LocationAddress>("Address invalid");
 
-        return Result.Success<Address>(address);
+        return Result.Success<LocationAddress>(locationAddress);
     }
 }

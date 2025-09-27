@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace DirectoryService.Domain.Locations.Address;
 
-public class AddressValidator: AbstractValidator<Address>
+public class AddressValidator: AbstractValidator<LocationAddress>
 {
     public AddressValidator()
     {

@@ -6,15 +6,18 @@ namespace DirectoryService.Domain;
 public class DepartmentPosition
 {
     public Guid Id { get; private set; }
-    public Department Department { get; private set; }
+    public DepartmentId DepartmentId { get; private set; }
+    public PositionId PositionId { get; private set; }
     public Position Position { get; private set; }
 
-    public DepartmentPosition(
-        Department department,
-        Position position)
+    public DepartmentPosition()
+    {
+    }
+    
+    public DepartmentPosition(DepartmentId departmentId, PositionId positionId)
     {
         Id = Guid.NewGuid();
-        Department = department;
-        Position = position;
+        DepartmentId = departmentId;
+        PositionId = positionId;
     }
 }

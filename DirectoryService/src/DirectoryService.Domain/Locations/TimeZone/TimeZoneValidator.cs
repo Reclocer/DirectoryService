@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace DirectoryService.Domain.Locations.TimeZone;
 
-public class TimeZoneValidator: AbstractValidator<TimeZone>
+public class TimeZoneValidator: AbstractValidator<LocationTimeZone>
 {
     public TimeZoneValidator()
     {
