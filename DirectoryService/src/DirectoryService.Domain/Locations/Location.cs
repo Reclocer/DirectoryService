@@ -44,11 +44,11 @@ public class Location
         IsActive = isActive;
     }
 
-    public Result<Location> Create(
+    public static Result<Location> Create(
         LocationId id,
         LocationName locationName,
-        Address.LocationAddress locationAddress,
-        TimeZone.LocationTimeZone locationTimeZone,
+        LocationAddress locationAddress,
+        LocationTimeZone locationTimeZone,
         DateTime createdAt,
         List<DepartmentLocation> locations,
         bool isActive = true,

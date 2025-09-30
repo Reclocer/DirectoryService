@@ -14,6 +14,14 @@
 
     <ItemGroup>
       <Folder Include="Departments\" />
+      <Folder Include="Locations\Delete\" />
+      <Folder Include="Locations\Update\" />
+      <Folder Include="Positions\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.1" />
     </ItemGroup>
 
 </Project>
