@@ -2,6 +2,7 @@ using DirectoryService.Application.Locations;
 using DirectoryService.Application.Locations.Create;
 using DirectoryService.Infrastructure.Postgres;
 using DirectoryService.Infrastructure.Postgres.Repositories;
+using DirectoryService.Web.MiddleWares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,8 @@ builder.Services.AddScoped<ILocationsRepository, LocationsRepository>();
 builder.Services.AddScoped<CreateLocationHandler>();
 
 var app = builder.Build();
+
+app.UseExceptionMiddleware();
 
 if (app.Environment.IsDevelopment())
 {
